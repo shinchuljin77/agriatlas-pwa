@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriAtlas - 황소작목반 신철진</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Malgun Gothic', sans-serif;
+            background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            max-width: 500px;
+        }
+        h1 { font-size: 48px; margin-bottom: 20px; }
+        .icon { font-size: 100px; margin-bottom: 20px; }
+        p { font-size: 20px; margin-bottom: 30px; line-height: 1.6; }
+        .btn {
+            background: #FFC107;
+            color: #1B5E20;
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: bold;
+            font-size: 18px;
+            transition: transform 0.3s;
+        }
+        .btn:hover { transform: scale(1.05); }
+        .footer {
+            margin-top: 40px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .watermark {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">🐄</div>
+        <h1>AgriAtlas</h1>
+        <p>
+            황소작목반 신철진의<br>
+            AI 농업 플랫폼
+        </p>
+        <p>🌾 작물 사진 찍으면 AI가 자동 진단<br>
+        📱 핸드폰에 앱으로 설치 가능</p>
+        <a href="#" class="btn">시작하기</a>
+        <div class="footer">
+            © 2026 황소작목반 신철진 제작<br>
+            Plant.id AI 기반
+        </div>
+    </div>
+    <div class="watermark">
+        🐄 황소작목반 신철진 제작
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
