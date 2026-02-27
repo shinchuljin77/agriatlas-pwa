@@ -11,69 +11,184 @@
             font-family: 'Malgun Gothic', sans-serif;
             background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             color: white;
         }
         .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
             text-align: center;
-            padding: 40px;
+            padding: 40px 20px;
+        }
+        .header .icon { font-size: 80px; margin-bottom: 15px; }
+        .header h1 { font-size: 42px; margin-bottom: 10px; }
+        .header p { font-size: 16px; opacity: 0.9; }
+        
+        .upload-section {
             background: rgba(255,255,255,0.1);
             border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
             backdrop-filter: blur(10px);
-            max-width: 500px;
         }
-        h1 { font-size: 48px; margin-bottom: 20px; }
-        .icon { font-size: 100px; margin-bottom: 20px; }
-        p { font-size: 20px; margin-bottom: 30px; line-height: 1.6; }
+        .upload-area {
+            border: 3px dashed rgba(255,255,255,0.5);
+            border-radius: 15px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .upload-area:hover {
+            border-color: #FFC107;
+            background: rgba(255,255,255,0.05);
+        }
+        .upload-area .icon { font-size: 60px; margin-bottom: 15px; }
+        .upload-area p { font-size: 18px; margin-bottom: 15px; }
+        .upload-area small { opacity: 0.7; }
+        
+        #imageInput { display: none; }
+        #preview { 
+            max-width: 100%; 
+            border-radius: 15px; 
+            margin: 20px 0; 
+            display: none;
+        }
+        
         .btn {
             background: #FFC107;
             color: #1B5E20;
             padding: 15px 30px;
             border-radius: 10px;
-            text-decoration: none;
-            display: inline-block;
+            border: none;
             font-weight: bold;
             font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
             transition: transform 0.3s;
         }
-        .btn:hover { transform: scale(1.05); }
-        .footer {
-            margin-top: 40px;
-            font-size: 14px;
-            opacity: 0.9;
+        .btn:hover { transform: scale(1.02); }
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
         }
+        
+        .result {
+            background: rgba(255,255,255,0.95);
+            color: #1B5E20;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+            display: none;
+        }
+        .result h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #2E7D32;
+        }
+        .result-item {
+            padding: 15px;
+            margin: 10px 0;
+            background: rgba(46,125,50,0.1);
+            border-radius: 10px;
+            border-left: 4px solid #2E7D32;
+        }
+        .result-item h4 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #1B5E20;
+        }
+        .result-item .probability {
+            display: inline-block;
+            background: #2E7D32;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .result-item p {
+            color: #555;
+            line-height: 1.6;
+            margin-top: 8px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 30px;
+            display: none;
+        }
+        .loading .spinner {
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid #FFC107;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
         .watermark {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 15px;
+            right: 15px;
             background: rgba(255,255,255,0.2);
             padding: 8px 15px;
             border-radius: 8px;
             font-size: 12px;
         }
+        
+        .footer {
+            text-align: center;
+            padding: 30px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="icon">🐄</div>
-        <h1>AgriAtlas</h1>
-        <p>
-            황소작목반 신철진의<br>
-            AI 농업 플랫폼
-        </p>
-        <p>🌾 작물 사진 찍으면 AI가 자동 진단<br>
-        📱 핸드폰에 앱으로 설치 가능</p>
-        <a href="#" class="btn">시작하기</a>
+        <div class="header">
+            <div class="icon">🐄</div>
+            <h1>AgriAtlas</h1>
+            <p>황소작목반 신철진의 AI 농업 플랫폼</p>
+        </div>
+
+        <div class="upload-section">
+            <div class="upload-area" onclick="document.getElementById('imageInput').click()">
+                <div class="icon">📷</div>
+                <p>작물 사진을 선택하세요</p>
+                <small>클릭해서 사진 업로드</small>
+            </div>
+            <input type="file" id="imageInput" accept="image/*" capture="environment">
+            <img id="preview" alt="미리보기">
+            <button class="btn" id="analyzeBtn" style="display:none;">🌾 AI 진단 시작</button>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Plant.id AI가 분석 중입니다...</p>
+        </div>
+
+        <div class="result" id="result"></div>
+
         <div class="footer">
             © 2026 황소작목반 신철진 제작<br>
-            Plant.id AI 기반
+            Plant.id AI 기반 작물 진단
         </div>
     </div>
+
     <div class="watermark">
         🐄 황소작목반 신철진 제작
     </div>
+
     <script src="app.js"></script>
 </body>
 </html>
